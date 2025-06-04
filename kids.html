@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOUTHSIDE KIDS - Premium Fashion for Children</title>
+    <meta name="description" content="Discover SOUTHSIDE's premium kids fashion collection with playful designs and quality craftsmanship.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="kids.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">S</span>
+                <span class="logo-text">SOUTHSIDE</span>
+            </div>
+            <nav class="nav">
+                <a href="index.html">HOME</a>
+                <a href="#" onclick="showCategory('girls')">GIRLS</a>
+                <a href="#" onclick="showCategory('boys')">BOYS</a>
+                <a href="#" onclick="showCategory('baby')">BABY</a>
+                <a href="#featured">SALE</a>
+                <a href="#about">ABOUT</a>
+            </nav>
+            <div class="actions">
+                <button class="cart-btn" onclick="showCart()">
+                    Cart (<span id="cart-count">0</span>)
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Kids Collection 2025</h1>
+            <p>Playful designs meet premium comfort for your little ones</p>
+            <a href="#featured" class="btn-primary">Shop Kids Now</a>
+        </div>
+    </section>
+
+    <!-- Age Categories -->
+    <section class="categories" id="categories">
+        <div class="container">
+            <h2>Shop by Age Group</h2>
+            <div class="category-grid">
+                <div class="category-card" onclick="showCategory('girls')">
+                    <img src="https://images.unsplash.com/photo-1544776527-59c6490fb81c?w=400&h=500&fit=crop" alt="Girls">
+                    <div class="category-content">
+                        <h3>Girls</h3>
+                        <p>Ages 2-14 | Cute & Stylish</p>
+                    </div>
+                </div>
+                <div class="category-card" onclick="showCategory('boys')">
+                    <img src="https://images.unsplash.com/photo-1503919545889-aef636e10ad4?w=400&h=500&fit=crop" alt="Boys">
+                    <div class="category-content">
+                        <h3>Boys</h3>
+                        <p>Ages 2-14 | Cool & Comfortable</p>
+                    </div>
+                </div>
+                <div class="category-card" onclick="showCategory('baby')">
+                    <img src="https://images.unsplash.com/photo-1522771930-78848d9293e8?w=400&h=500&fit=crop" alt="Baby">
+                    <div class="category-content">
+                        <h3>Baby</h3>
+                        <p>0-24 Months | Soft & Safe</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
