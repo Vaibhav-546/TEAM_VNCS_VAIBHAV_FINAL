@@ -118,4 +118,124 @@ function showAddToCartSuccess(itemName) {
     }, 3000);
 }
 
+// Show cart modal
+function showCart() {
+    updateCartModal();
+    document.getElementById('cart-modal').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+// Close cart modal
+function closeCart() {
+    document.getElementById('cart-modal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// Update cart modal content
+function updateCartModal() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    
+    if (cart.length === 0) {
+        cartItemsContainer.innerHTML = `
+            <div class="cart-empty">
+                <div class="cart-empty-icon">🛒</div>
+                <p>Your cart is empty</p>
+                <small>Add some amazing kids items to get started!</small>
+            </div>
+        `;
+        return;
+    }
+    
+    cartItemsContainer.innerHTML = cart.map(item => `
+        <div class="cart-item">
+            <div class="cart-item-info">
+                <div class="cart-item-name">${item.name}</div>
+                <div class="cart-item-price">₹${item.price.toLocaleString()} × ${item.quantity}</div>
+            </div>
+            <button class="cart-item-remove" onclick="removeFromCart('${item.id}')">
+                Remove
+            </button>
+        </div>
+    `).join('');
+}
+
+// Show products by category
+function showCategory(category) {
+    const products = document.querySelectorAll('.product-card');
+    
+    products.forEach(product => {
+        const productCategory = product.getAttribute('data-category');
+        if (category === 'all' || productCategory === category) {
+            product.style.display = 'block';
+            product.style.animation = 'fadeInUp 0.5s ease forwards';
+        } else {
+            product.style.display = 'none';
+        }
+    });
+    
+    // Update active category indicator
+    updateCategoryButtons(category);
+    
+    // Scroll to products section
+    document.getElementById('featured').scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
+}
+
+// Show all products
+function showAllProducts() {
+    const products = document.querySelectorAll('.product-card');
+    products.forEach(product => {
+        product.style.display = 'block';
+        product.style.animation = 'fadeInUp 0.5s ease forwards';
+    });
+}
+
+// Update category button styles
+function updateCategoryButtons(activeCategory) {
+    // This function can be expanded to highlight active category buttons
+    console.log(`Active category: ${activeCategory}`);
+}
+
+// Checkout function
+function checkout() {
+    if (cart.length === 0) {
+        alert('Your cart is empty! Please add some items before checkout.');
+        return;
+    }
+    
+    // Create checkout summary
+    let summary = 'Kids Fashion Order Summary:\n\n';
+    cart.forEach(item => {
+        summary += `${item.name} × ${item.quantity} = ₹${(item.price * item.quantity).toLocaleString()}\n`;
+    });
+    summary += `\nTotal: ₹${cartTotal.toLocaleString()}`;
+    summary += '\n\nThank you for shopping SOUTHSIDE Kids! 🎉';
+    
+    alert(summary);
+    
+    // Clear cart after checkout
+    cart = [];
+    cartCount = 0;
+    cartTotal = 0;
+    updateCartDisplay();
+    closeCart();
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById('cart-modal');
+    if (event.target === modal) {
+        closeCart();
+    }
+}
+
+// Keyboard navigation for modals
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeCart();
+    }
+});
+
 
