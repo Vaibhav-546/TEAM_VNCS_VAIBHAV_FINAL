@@ -238,4 +238,173 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
+// Add CSS for animations
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .product-card {
+        animation: none;
+    }
+    
+    .cart-item {
+        animation: slideIn 0.3s ease forwards;
+    }
+    
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+`;
+document.head.appendChild(style);
 
+// Fun interactive features for kids
+function addSparkleEffect(element) {
+    const sparkle = document.createElement('div');
+    sparkle.innerHTML = '✨';
+    sparkle.style.cssText = `
+        position: absolute;
+        pointer-events: none;
+        font-size: 1.5rem;
+        animation: sparkle 1s ease forwards;
+        z-index: 1000;
+    `;
+    
+    const rect = element.getBoundingClientRect();
+    sparkle.style.left = (rect.left + Math.random() * rect.width) + 'px';
+    sparkle.style.top = (rect.top + Math.random() * rect.height) + 'px';
+    
+    document.body.appendChild(sparkle);
+    
+    setTimeout(() => {
+        document.body.removeChild(sparkle);
+    }, 1000);
+}
+
+// Add sparkle animation CSS
+const sparkleStyle = document.createElement('style');
+sparkleStyle.textContent = `
+    @keyframes sparkle {
+        0% {
+            opacity: 1;
+            transform: scale(0) rotate(0deg);
+        }
+        50% {
+            opacity: 1;
+            transform: scale(1) rotate(180deg);
+        }
+        100% {
+            opacity: 0;
+            transform: scale(0) rotate(360deg);
+        }
+    }
+`;
+document.head.appendChild(sparkleStyle);
+
+// Add sparkle effects to product cards on hover
+document.addEventListener('DOMContentLoaded', function() {
+    const productCards = document.querySelectorAll('.product-card');
+    productCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            addSparkleEffect(card);
+        });
+    });
+});
+
+// Search functionality (if needed)
+function searchProducts(query) {
+    const products = document.querySelectorAll('.product-card');
+    const searchTerm = query.toLowerCase();
+    
+    products.forEach(product => {
+        const productName = product.querySelector('h3').textContent.toLowerCase();
+        if (productName.includes(searchTerm)) {
+            product.style.display = 'block';
+        } else {
+            product.style.display = 'none';
+        }
+    });
+}
+
+// Size guide functionality
+function showSizeGuide() {
+    document.getElementById('size-guide').scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
+}
+
+// Newsletter signup (if needed)
+function subscribeNewsletter(email) {
+    if (email && email.includes('@')) {
+        alert(`Thank you for subscribing to SOUTHSIDE Kids newsletter! 🎉\nWe'll send kids fashion updates to ${email}`);
+        return true;
+    } else {
+        alert('Please enter a valid email address.');
+        return false;
+    }
+}
+
+// Social sharing functions
+function shareOnSocial(platform, productName) {
+    const url = window.location.href;
+    const text = `Check out this amazing ${productName} from SOUTHSIDE Kids!`;
+    
+    let shareUrl = '';
+    switch(platform) {
+        case 'facebook':
+            shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+            break;
+        case 'twitter':
+            shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+            break;
+        case 'whatsapp':
+            shareUrl = `https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`;
+            break;
+    }
+    
+    if (shareUrl) {
+        window.open(shareUrl, '_blank', 'width=600,height=400');
+    }
+}
+
+window.addEventListener('error', function(event) {
+    console.error('An error occurred:', event.error);
+});
+
+// Performance optimization - Lazy loading for images
+function lazyLoadImages() {
+    const images = document.querySelectorAll('img[data-src]');
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+
+            }
+        });
+    });
+    
+    images.forEach(img => imageObserver.observe(img));
+}
+
+
+if ('IntersectionObserver' in window) {
+    document.addEventListener('DOMContentLoaded', lazyLoadImages);
+}
